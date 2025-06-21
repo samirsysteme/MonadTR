@@ -195,7 +195,7 @@
         <label for="roundsSelect">Number of rounds:</label>
         <select id="roundsSelect">
           <option value="5">5</option>
-          <option value="1">10</option>
+          <option value="10">10</option>
           <option value="30" selected>30</option>
         </select>
       </div>
@@ -235,7 +235,9 @@
     </div>
 
     <div id="toast"></div>
+
     <audio id="endSound" src="https://www.soundjay.com/buttons/sounds/beep-07.mp3" preload="auto"></audio>
+    <audio id="liarMusic" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" preload="auto"></audio>
   </div>
 
 <script>
@@ -253,7 +255,7 @@
 
   let roomID, playerName, players = {}, votes = {}, points = {}, liar = null,
       maxRounds = 30, roundNumber = 0, voteTimer = null, countdownInterval = null,
-      timeLeft = 20, myVote = null, revealedLiar = null;
+      timeLeft = 10, myVote = null, revealedLiar = null;
 
   const questions = [
     "Have you ever lied to a friend?",
@@ -420,7 +422,7 @@
       v.innerHTML += `<button onclick="vote('${p}')" id="voteBtn_${p}">${p}${votedMark}</button>`;
     }
 
-    timeLeft = 20;
+    timeLeft = 10;
     const countdown = document.getElementById("countdown");
 
     function tick(){
@@ -499,6 +501,7 @@
     r.style.display = "block";
     r.innerHTML = `<h2 style="color:red;">😈 The liar is: ${res.liar}</h2>
                    <p>${res.success ? "✅ Successfully caught" : "❌ Not caught. Voted for: " + (res.most || "No one")}</p>`;
+    document.getElementById("liarMusic").play(); // تشغيل الموسيقى الدرامية عند الكشف
   }
 
   function clearResult(){
